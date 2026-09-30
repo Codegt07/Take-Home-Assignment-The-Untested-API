@@ -1,3 +1,4 @@
+
 const { v4: uuidv4 } = require('uuid');
 
 let tasks = [];
@@ -6,10 +7,11 @@ const getAll = () => [...tasks];
 
 const findById = (id) => tasks.find((t) => t.id === id);
 
-const getByStatus = (status) => tasks.filter((t) => t.status.includes(status));
+const getByStatus = (status) =>
+  tasks.filter((t) => t.status === status);
 
 const getPaginated = (page, limit) => {
-  const offset = page * limit;
+  const offset = (page - 1) * limit;
   return tasks.slice(offset, offset + limit);
 };
 
@@ -80,6 +82,22 @@ const _reset = () => {
   tasks = [];
 };
 
+const assignTask = (id, assignee) => {
+  const task = findById(id);
+
+  if (!task) return null;
+
+  const updated = {
+    ...task,
+    assignee,
+  };
+
+  const index = tasks.findIndex((t) => t.id === id);
+  tasks[index] = updated;
+
+  return updated;
+};
+
 module.exports = {
   getAll,
   findById,
@@ -91,4 +109,5 @@ module.exports = {
   remove,
   completeTask,
   _reset,
+  assignTask
 };
