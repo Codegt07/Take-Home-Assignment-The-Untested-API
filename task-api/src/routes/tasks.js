@@ -60,6 +60,10 @@ router.delete('/:id', (req, res) => {
   res.status(204).send();
 });
 
+// Implements PATCH /tasks/:id/assign.
+// Validates that assignee is a non-empty string,
+// trims surrounding whitespace, and returns 404 if the task does not exist.
+
 router.patch('/:id/assign', (req, res) => {
   const error = validateAssignee(req.body);
 

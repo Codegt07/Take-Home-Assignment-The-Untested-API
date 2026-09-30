@@ -89,6 +89,9 @@ const _reset = () => {
   tasks = [];
 };
 
+// Assigns the provided assignee to an existing task.
+// Returns null when the task does not exist.
+
 const assignTask = (id, assignee) => {
   const task = findById(id);
 
