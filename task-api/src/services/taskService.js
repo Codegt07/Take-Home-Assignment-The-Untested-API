@@ -7,13 +7,20 @@ const getAll = () => [...tasks];
 
 const findById = (id) => tasks.find((t) => t.id === id);
 
+// Fixed: use exact status matching to avoid returning
+// tasks for partial status values.
+
 const getByStatus = (status) =>
   tasks.filter((t) => t.status === status);
+
+// Fixed: pagination is 1-based, so calculate the offset
+// from (page - 1) before slicing the tasks.
 
 const getPaginated = (page, limit) => {
   const offset = (page - 1) * limit;
   return tasks.slice(offset, offset + limit);
 };
+
 
 const getStats = () => {
   const now = new Date();
